@@ -12,7 +12,7 @@ pipeline {
 
 	tools {
     jdk 'JDK11_Centos' //Preinstalada en la Configuración del Master
-    gradle 'Gradle5.6_Centos' //Preinstalada en la Configuración del   Master
+    //gradle 'Gradle5.6_Centos' //Preinstalada en la Configuración del   Master
   }
 
 	//Aquí comienzan los “items” del Pipeline
