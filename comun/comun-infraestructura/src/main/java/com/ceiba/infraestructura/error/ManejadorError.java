@@ -1,8 +1,7 @@
 package com.ceiba.infraestructura.error;
 
 
-import java.util.concurrent.ConcurrentHashMap;
-
+import com.ceiba.dominio.excepcion.*;
 import com.ceiba.infraestructura.excepcion.ExcepcionTecnica;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
-import com.ceiba.dominio.excepcion.ExcepcionLongitudValor;
-import com.ceiba.dominio.excepcion.ExcepcionSinDatos;
-import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
-import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
+import java.util.concurrent.ConcurrentHashMap;
 
 @ControllerAdvice
 public class ManejadorError extends ResponseEntityExceptionHandler {
