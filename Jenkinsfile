@@ -37,11 +37,9 @@ pipeline {
 
     stage('Compile & Unit Tests') {
       steps{
-        echo "------------>Unit Tests<------------"
-		sh 'gradle --b ./microservicio/build.gradle clean'
-
-		echo "------------>Unit Test<------------"
-		sh 'gradle --b ./microservicio/build.gradle test jacocoTestReport'
+        echo "------------>compile & Unit Tests<------------"
+        sh 'chmod +x gradlew'
+        sh './gradlew --b ./build.gradle test'
 
       }
     }
