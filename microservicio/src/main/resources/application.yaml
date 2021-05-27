@@ -1,0 +1,21 @@
+jasypt:
+   encryptor:
+      password: ${jasyptpwd:root}
+      algorithm: PBEWithMD5AndDES
+
+server:
+   port: 8084
+   servlet:
+      context-path: /reserva
+      session:
+         timeout: 21600s
+
+spring:
+   datasource:
+      driver-class-name: org.h2.Driver
+      type: com.zaxxer.hikari.HikariDataSource
+      jdbcUrl: jdbc:h2:mem:~/reserva
+      username: root
+      password: ENC(cm9uNNAxWQDQN/pzmGCWBA==)
+      hikari:
+         poolName: pool

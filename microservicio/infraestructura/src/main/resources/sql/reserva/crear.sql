@@ -1,0 +1,1 @@
+insert into reserva (identificacion_usuario,fecha,hora_inicio,hora_fin) values (:identificacionUsuario, :fecha, :horaInicio, :horaFin)
