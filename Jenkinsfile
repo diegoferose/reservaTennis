@@ -12,7 +12,7 @@ pipeline {
 
 	tools {
     jdk 'JDK11_Centos' //Preinstalada en la Configuración del Master
-    //gradle 'Gradle5.6_Centos' //Preinstalada en la Configuración del   Master
+    gradle 'Gradle5.6_Centos' //Preinstalada en la Configuración del   Master
   }
 
 	//Aquí comienzan los “items” del Pipeline
@@ -37,9 +37,11 @@ pipeline {
 
     stage('Compile & Unit Tests') {
       steps{
-        echo "------------>compile & Unit Tests<------------"
-        sh 'chmod +x gradlew'
-        sh './gradlew --b ./build.gradle test'
+        echo "------------>Unit Tests<------------"
+		sh 'gradle --b ./microservicio/build.gradle clean'
+
+		echo "------------>Unit Test<------------"
+		sh 'gradle --b ./microservicio/build.gradle test jacocoTestReport'
 
       }
     }
