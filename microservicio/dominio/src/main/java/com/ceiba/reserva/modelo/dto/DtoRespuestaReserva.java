@@ -8,4 +8,5 @@ import lombok.Getter;
 public class DtoRespuestaReserva {
     private Long id;
     private String mensaje;
+    private Double valorAPagar;
 }

@@ -18,8 +18,11 @@ public class Reserva {
     private LocalDate fecha;
     private String horaInicio;
     private String horaFin;
+    private String estado;
+    private double valorAPagar;
 
-    public Reserva(int id, String identificacionUsuario, LocalDate fecha, String horaInicio, String horaFin) {
+    public Reserva(int id, String identificacionUsuario, LocalDate fecha, String horaInicio, String horaFin, Double valorAPagar,String estado) {
+
         validarObligatorio(identificacionUsuario, IDENTIFICACION_USUARIO_OBLIGATORIA);
         validarObligatorio(fecha, FECHA_OBLIGATORIA);
         validarObligatorio(horaInicio, HORA_INICIO_OBLIGATORIA);
@@ -29,5 +32,11 @@ public class Reserva {
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+        this.valorAPagar = valorAPagar;
+        this.estado = estado;
     }
+    public void setValorAPagar(Double valorAPagar) {
+        this.valorAPagar = valorAPagar;
+    }
+    public void setEstado(String estado) { this.estado = estado; }
 }
