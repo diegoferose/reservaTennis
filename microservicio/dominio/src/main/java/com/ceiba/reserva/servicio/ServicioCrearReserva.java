@@ -85,22 +85,24 @@ public class ServicioCrearReserva {
         double valorAPagar;
         switch (categoria){
             case CATEGORIA_A:
-                valorAPagar = calcularValorAPagar(VALOR_HORA_CATEGORIA_A);
+                valorAPagar = calcularValorAPagar(reserva, VALOR_HORA_CATEGORIA_A);
                 break;
             case CATEGORIA_B:
-                valorAPagar = calcularValorAPagar(VALOR_HORA_CATEGORIA_B);
+                valorAPagar = calcularValorAPagar(reserva, VALOR_HORA_CATEGORIA_B);
                 break;
             case CATEGORIA_C:
-                valorAPagar = calcularValorAPagar(VALOR_HORA_CATEGORIA_C);
+                valorAPagar = calcularValorAPagar(reserva, VALOR_HORA_CATEGORIA_C);
                 break;
             default:
-                valorAPagar = calcularValorAPagar(VALOR_HORA_SIN_CATEGORIA);
+                valorAPagar = calcularValorAPagar(reserva,VALOR_HORA_SIN_CATEGORIA);
         }
         return valorAPagar;
     }
 
-    public double calcularValorAPagar(int valorBase){
+    public double calcularValorAPagar(Reserva reserva, int valorBase){
         double recargarFinDeSemana = 1;
+        horaFin = LocalDateTime.parse(reserva.getHoraFin(), formatter);
+        horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
         if (horaInicio.getDayOfWeek().getValue() == SABADO || horaInicio.getDayOfWeek().getValue() == DOMINGO){
              recargarFinDeSemana = 1.2;
         }

@@ -10,8 +10,7 @@ import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import java.time.LocalDate;
+import static org.junit.Assert.assertEquals;
 
 public class ServicioCrearReservaTest {
 
@@ -57,5 +56,18 @@ public class ServicioCrearReservaTest {
         ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
         // act - assert
         BasePrueba.assertThrows(() -> servicioCrearReserva.ejecutar(reserva), ExcepcionReservaActiva.class, "Ya existe una reserva activa en ese rango de tiempo");
+    }
+
+    @Test
+    public void obtenerValorAPagar(){
+        // arrange
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
+        Reserva reserva = reservaTestDataBuilder.build();
+        RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
+        ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
+        Mockito.when(servicioCrearReserva.obtenerCategoria(Mockito.anyString())).thenReturn("A");
+        double valorEsperadoAPagar = 42800;
+        // act - assert
+        assertEquals(valorEsperadoAPagar,servicioCrearReserva.obtenerValorAPagar(reserva),0.001);
     }
 }
