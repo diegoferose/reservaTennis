@@ -19,6 +19,10 @@ public class ComandoReservaTestDataBuilder {
         horaFin = "2021-05-28 12:00:00";
         identificacionUsuario = "123";
     }
+    public ComandoReservaTestDataBuilder conHoraDeInicio(String horaInicio){
+        this.horaInicio = horaInicio;
+        return this;
+    }
     public ComandoReserva build(){
         return new ComandoReserva(id,identificacionUsuario,fecha,horaInicio,horaFin,estado,valorAPagar);
     }

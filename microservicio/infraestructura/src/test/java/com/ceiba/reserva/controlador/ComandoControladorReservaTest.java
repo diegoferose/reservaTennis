@@ -43,6 +43,20 @@ public class ComandoControladorReservaTest {
 
     }
     @Test
+    public void crearBadRequest() throws Exception{
+
+        // arrange
+        ComandoReservaTestDataBuilder comandoReservaTestDataBuilder =  new ComandoReservaTestDataBuilder().conHoraDeInicio("2021-05-28 06:00:00");
+        ComandoReserva comandoReserva = comandoReservaTestDataBuilder.build();
+
+        // act - assert
+        mocMvc.perform(post("/reservas")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoReserva)))
+                .andExpect(status().isBadRequest());
+
+    }
+    @Test
     public void actualizar() throws Exception{
         // arrange
         Long id = 2L;
