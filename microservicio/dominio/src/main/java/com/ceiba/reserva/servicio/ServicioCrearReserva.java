@@ -106,12 +106,14 @@ public class ServicioCrearReserva {
         if (horaInicio.getDayOfWeek().getValue() == SABADO || horaInicio.getDayOfWeek().getValue() == DOMINGO){
              recargarFinDeSemana = 1.2;
         }
-        double tiempoReservado = calcularTiempoReservado();
+        double tiempoReservado = calcularTiempoReservado(reserva);
         return (((valorBase*tiempoReservado)/MINUTOS_DE_UNA_HORA)*recargarFinDeSemana);
     }
 
-    public double calcularTiempoReservado(){
+    public double calcularTiempoReservado(Reserva reserva){
         double tiempo;
+        horaFin = LocalDateTime.parse(reserva.getHoraFin(), formatter);
+        horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
         int horaInicial = horaInicio.getHour()*MINUTOS_DE_UNA_HORA;
         int minutoInicial = horaInicio.getMinute();
         double segundoInicial = (horaInicio.getSecond()/MINUTOS_DE_UNA_HORA);
@@ -121,7 +123,7 @@ public class ServicioCrearReserva {
         double tiempoIncialTotal = horaInicial+minutoInicial+segundoInicial;
         double tiempoFinalTotal = horaFinal+minutoFinal+segundoFinal;
         tiempo = tiempoFinalTotal - tiempoIncialTotal;
-
+        System.out.println("tiempo: "+tiempo);
         return tiempo;
     }
 
