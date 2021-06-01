@@ -4,6 +4,7 @@ import com.ceiba.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionHoraDiferenteDIa;
 import com.ceiba.dominio.excepcion.ExcepcionHoraInicialMayor;
 import com.ceiba.dominio.excepcion.ExcepcionHoraReservaNoValida;
+import com.ceiba.dominio.excepcion.ExcepcionReservaActiva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
@@ -45,5 +46,16 @@ public class ServicioCrearReservaTest {
         ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
         // act - assert
         BasePrueba.assertThrows(() -> servicioCrearReserva.ejecutar(reserva), ExcepcionHoraInicialMayor.class, "La hora de inicio no puede ser mayor a la final");
+    }
+    @Test
+    public void validarReservaActiva(){
+        // arrange
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
+        Reserva reserva = reservaTestDataBuilder.build();
+        RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
+        Mockito.when(repositorioReserva.buscarReservaPorFecha(Mockito.anyObject())).thenReturn(1);
+        ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
+        // act - assert
+        BasePrueba.assertThrows(() -> servicioCrearReserva.ejecutar(reserva), ExcepcionReservaActiva.class, "Ya existe una reserva activa en ese rango de tiempo");
     }
 }
