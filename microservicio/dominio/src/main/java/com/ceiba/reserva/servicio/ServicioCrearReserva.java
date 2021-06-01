@@ -82,7 +82,7 @@ public class ServicioCrearReserva {
 
     public double obtenerValorAPagar(Reserva reserva){
         String categoria = obtenerCategoria(reserva.getIdentificacionUsuario());
-        double valorAPagar = 0.0;
+        double valorAPagar;
         switch (categoria){
             case CATEGORIA_A:
                 valorAPagar = calcularValorAPagar(VALOR_HORA_CATEGORIA_A);
@@ -104,14 +104,12 @@ public class ServicioCrearReserva {
         if (horaInicio.getDayOfWeek().getValue() == SABADO || horaInicio.getDayOfWeek().getValue() == DOMINGO){
              recargarFinDeSemana = 1.2;
         }
-        double valorAPagar = 0.0;
         double tiempoReservado = calcularTiempoReservado();
-        valorAPagar = ((valorBase*tiempoReservado)/MINUTOS_DE_UNA_HORA)*recargarFinDeSemana;
-        return valorAPagar;
+        return (((valorBase*tiempoReservado)/MINUTOS_DE_UNA_HORA)*recargarFinDeSemana);
     }
 
     public double calcularTiempoReservado(){
-        double tiempo = 0.0;
+        double tiempo;
         int horaInicial = horaInicio.getHour()*MINUTOS_DE_UNA_HORA;
         int minutoInicial = horaInicio.getMinute();
         double segundoInicial = (horaInicio.getSecond()/MINUTOS_DE_UNA_HORA);

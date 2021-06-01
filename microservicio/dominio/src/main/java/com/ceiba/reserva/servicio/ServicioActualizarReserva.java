@@ -58,7 +58,6 @@ public class ServicioActualizarReserva {
         int horasEnMinutos = tiempo.getHour()*MINUTOS_DE_UNA_HORA;
         int minutos = tiempo.getMinute();
         double segundosEnMinutos = (tiempo.getSecond()/MINUTOS_DE_UNA_HORA);
-        double tiempoTotal = horasEnMinutos+minutos+segundosEnMinutos;
-        return tiempoTotal;
+        return (horasEnMinutos+minutos+segundosEnMinutos);
     }
 }
