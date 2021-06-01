@@ -23,6 +23,10 @@ public class ReservaTestDataBuilder {
         this.horaInicio = horaInicio;
         return this;
     }
+    public ReservaTestDataBuilder conIdentificacionDeUsuario(String identificacionUsuario){
+        this.identificacionUsuario = identificacionUsuario;
+        return this;
+    }
 
     public Reserva build(){
         return new Reserva(id,identificacionUsuario,fecha,horaInicio,horaFin,valorAPagar,estado);

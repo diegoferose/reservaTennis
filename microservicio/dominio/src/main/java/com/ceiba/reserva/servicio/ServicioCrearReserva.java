@@ -123,7 +123,6 @@ public class ServicioCrearReserva {
         double tiempoIncialTotal = horaInicial+minutoInicial+segundoInicial;
         double tiempoFinalTotal = horaFinal+minutoFinal+segundoFinal;
         tiempo = tiempoFinalTotal - tiempoIncialTotal;
-        System.out.println("tiempo: "+tiempo);
         return tiempo;
     }
 

@@ -59,7 +59,7 @@ public class ServicioCrearReservaTest {
     }
 
     @Test
-    public void obtenerValorAPagar(){
+    public void obtenerValorAPagarCategoriaA(){
         // arrange
         ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
         Reserva reserva = reservaTestDataBuilder.build();
@@ -67,6 +67,18 @@ public class ServicioCrearReservaTest {
         ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
         Mockito.when(servicioCrearReserva.obtenerCategoria(Mockito.anyString())).thenReturn("A");
         double valorEsperadoAPagar = 42800;
+        // act - assert
+        assertEquals(valorEsperadoAPagar,servicioCrearReserva.obtenerValorAPagar(reserva),0.001);
+    }
+    @Test
+    public void obtenerValorAPagarCategoriaB(){
+        // arrange
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
+        Reserva reserva = reservaTestDataBuilder.build();
+        RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
+        ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
+        Mockito.when(servicioCrearReserva.obtenerCategoria(Mockito.anyString())).thenReturn("B");
+        double valorEsperadoAPagar = 46000;
         // act - assert
         assertEquals(valorEsperadoAPagar,servicioCrearReserva.obtenerValorAPagar(reserva),0.001);
     }
