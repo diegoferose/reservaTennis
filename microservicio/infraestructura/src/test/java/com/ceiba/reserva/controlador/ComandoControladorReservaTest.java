@@ -15,6 +15,7 @@ import org.junit.Test;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes= ApplicationMock.class)
@@ -40,6 +41,17 @@ public class ComandoControladorReservaTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("{ 'valor': { 'id': 1, 'mensaje': 'RESERVA REALIZADA CON EXITO', 'valorAPagar': 42800 } }" ));
 
+    }
+    @Test
+    public void actualizar() throws Exception{
+        // arrange
+        Long id = 2L;
+        ComandoReserva comandoReserva = new ComandoReservaTestDataBuilder().build();
+        // act - assert
+        mocMvc.perform(put("/reservas/{id}",id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoReserva)))
+                .andExpect(status().isOk());
     }
 
 }
