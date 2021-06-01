@@ -75,7 +75,6 @@ public class ServicioCrearReserva {
         }
     }
      public void validarReservaActiva(Reserva reserva){
-        System.out.println("resultado cantidad busqueda: "+this.repositorioReserva.buscarReservaPorFecha(reserva));
         if (this.repositorioReserva.buscarReservaPorFecha(reserva) > 0){
             throw new ExcepcionReservaActiva(MENSAJE_RESERVA_ACTIVA_EN_HORA);
         }
