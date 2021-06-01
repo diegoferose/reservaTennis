@@ -1,7 +1,9 @@
 package com.ceiba.reserva.comando.manejador;
 
+import com.ceiba.ComandoRespuesta;
 import com.ceiba.reserva.comando.ComandoReserva;
 import com.ceiba.reserva.comando.fabrica.FabricaReserva;
+import com.ceiba.reserva.modelo.dto.DtoRespuestaReserva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.servicio.ServicioActualizarReserva;
 import org.springframework.stereotype.Component;
@@ -16,8 +18,8 @@ public class ManejadorActualizarReserva {
         this.servicioActualizarReserva = servicioActualizarReserva;
 
     }
-    public void ejecutar(ComandoReserva comandoReserva){
+    public ComandoRespuesta<DtoRespuestaReserva> ejecutar(ComandoReserva comandoReserva){
         Reserva reserva = fabricaReserva.crear(comandoReserva);
-        this.servicioActualizarReserva.ejecutar(reserva);
+        return new ComandoRespuesta<>(this.servicioActualizarReserva.ejecutar(reserva));
     }
 }

@@ -32,7 +32,7 @@ public interface RepositorioReserva {
      * Permite actualizar un usuario
      * @param reserva
      */
-    void actualizar(Reserva reserva);
+    DtoRespuestaReserva actualizar(Reserva reserva);
 
 
 }

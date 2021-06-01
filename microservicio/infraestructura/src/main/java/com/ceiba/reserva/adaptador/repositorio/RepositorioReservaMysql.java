@@ -53,7 +53,9 @@ public class RepositorioReservaMysql implements RepositorioReserva {
     }
 
     @Override
-    public void actualizar(Reserva reserva) {
+    public DtoRespuestaReserva actualizar(Reserva reserva) {
+        System.out.println("valor reserva: "+reserva.getValorAPagar());
         this.customNamedParameterJdbcTemplate.actualizar(reserva, sqlActualizar);
+        return mapperReserva.mapperEntityToDto(Long.parseLong(reserva.getId()+""),reserva);
     }
 }

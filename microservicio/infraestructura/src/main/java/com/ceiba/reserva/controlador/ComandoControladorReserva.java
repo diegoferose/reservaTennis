@@ -32,8 +32,8 @@ public class ComandoControladorReserva {
 
     @PutMapping(value="/{id}")
     @ApiOperation("Actualizar reserva")
-    public void actualizar(@RequestBody ComandoReserva comandoReserva, @PathVariable int id) {
+    public ComandoRespuesta<DtoRespuestaReserva> actualizar(@RequestBody ComandoReserva comandoReserva, @PathVariable int id) {
         comandoReserva.setId(id);
-        manejadorActualizarReserva.ejecutar(comandoReserva);
+        return manejadorActualizarReserva.ejecutar(comandoReserva);
     }
 }
