@@ -23,8 +23,16 @@ public class ReservaTestDataBuilder {
         this.horaInicio = horaInicio;
         return this;
     }
+    public ReservaTestDataBuilder conHoraFin(String horaFin){
+        this.horaFin = horaFin;
+        return this;
+    }
     public ReservaTestDataBuilder conIdentificacionDeUsuario(String identificacionUsuario){
         this.identificacionUsuario = identificacionUsuario;
+        return this;
+    }
+    public ReservaTestDataBuilder conFecha(LocalDate fecha){
+        this.fecha = fecha;
         return this;
     }
 

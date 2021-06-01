@@ -1,10 +1,7 @@
 package com.ceiba.reserva.servicio;
 
 import com.ceiba.BasePrueba;
-import com.ceiba.dominio.excepcion.ExcepcionHoraDiferenteDIa;
-import com.ceiba.dominio.excepcion.ExcepcionHoraInicialMayor;
-import com.ceiba.dominio.excepcion.ExcepcionHoraReservaNoValida;
-import com.ceiba.dominio.excepcion.ExcepcionReservaActiva;
+import com.ceiba.dominio.excepcion.*;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
@@ -107,5 +104,36 @@ public class ServicioCrearReservaTest {
         double valorEsperadoAPagar = 240;
         // act - assert
         assertEquals(valorEsperadoAPagar,servicioCrearReserva.calcularTiempoReservado(reserva),0.001);
+    }
+    @Test
+    public void validarObligatorioIdentificacionUsuario(){
+        // arrange
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder().conIdentificacionDeUsuario(null);
+        // act - assert
+        BasePrueba.assertThrows(() -> reservaTestDataBuilder.build(), ExcepcionValorObligatorio.class, "La identificacion de usuario es obligatoria");
+    }
+
+    @Test
+    public void validarObligatorioFecha(){
+        // arrange
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder().conFecha(null);
+        // act - assert
+        BasePrueba.assertThrows(() -> reservaTestDataBuilder.build(), ExcepcionValorObligatorio.class, "La fecha de reserva es obligatoria");
+    }
+
+    @Test
+    public void validarObligatorioHoraInicio(){
+        // arrange
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder().conHoraInicial(null);
+        // act - assert
+        BasePrueba.assertThrows(() -> reservaTestDataBuilder.build(), ExcepcionValorObligatorio.class, "La hora de inicio es obligatoria");
+    }
+
+    @Test
+    public void validarObligatorioHoraFin(){
+        // arrange
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder().conHoraFin(null);
+        // act - assert
+        BasePrueba.assertThrows(() -> reservaTestDataBuilder.build(), ExcepcionValorObligatorio.class, "La hora de fin es obligatoria");
     }
 }
