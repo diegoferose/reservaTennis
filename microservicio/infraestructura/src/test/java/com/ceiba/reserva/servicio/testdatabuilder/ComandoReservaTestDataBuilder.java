@@ -14,6 +14,7 @@ public class ComandoReservaTestDataBuilder {
     private double valorAPagar;
 
     public ComandoReservaTestDataBuilder() {
+        id = 1;
         fecha = LocalDate.now();
         horaInicio = "2021-05-28 08:00:00";
         horaFin = "2021-05-28 12:00:00";

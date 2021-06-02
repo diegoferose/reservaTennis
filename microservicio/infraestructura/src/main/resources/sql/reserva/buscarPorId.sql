@@ -1,0 +1,3 @@
+SELECT count(1)
+FROM RESERVA
+WHERE id = :id;

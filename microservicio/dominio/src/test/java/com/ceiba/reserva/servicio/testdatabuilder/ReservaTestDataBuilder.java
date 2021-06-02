@@ -35,6 +35,10 @@ public class ReservaTestDataBuilder {
         this.fecha = fecha;
         return this;
     }
+    public  ReservaTestDataBuilder conId(int id){
+        this.id = id;
+        return this;
+    }
 
     public Reserva build(){
         return new Reserva(id,identificacionUsuario,fecha,horaInicio,horaFin,valorAPagar,estado);

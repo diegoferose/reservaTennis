@@ -1,5 +1,7 @@
 package com.ceiba.reserva.servicio;
 
+import com.ceiba.dominio.excepcion.ExcepcionHoraDiferenteDIa;
+import com.ceiba.dominio.excepcion.ExcepcionReservaNoEncontrada;
 import com.ceiba.reserva.modelo.dto.DtoRespuestaReserva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
@@ -11,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 public class ServicioActualizarReserva {
     private final RepositorioReserva repositorioReserva;
     private static final String MENSAJE_CANCELACION_EXISOTA = "Se cancelo exitosamente la reserva";
+    private static final String MENSAJE_NO_SE_ECONTRO_RESERVA = "No se encontro una reserva para cancelar";
     private static final int MINUTOS_DE_UNA_HORA = 60;
     private static final double VALOR_MULTA_MENOS_DE_UNA_HORA = 7900;
     private static final double VALOR_MULTA_MAS_DE_UNA_HORA = 0;
@@ -19,6 +22,7 @@ public class ServicioActualizarReserva {
         this.repositorioReserva = repositorioReserva;
     }
     public DtoRespuestaReserva ejecutar(Reserva reserva){
+        validarExistenciaReserva(reserva);
         double valorMulta = calcularValorMulta(reserva);
         reserva.setValorAPagar(valorMulta);
         DtoRespuestaReserva dtoRespuestaReserva = this.repositorioReserva.actualizar(reserva);
@@ -26,6 +30,16 @@ public class ServicioActualizarReserva {
         dtoRespuestaReserva.setValorAPagar(valorMulta);
 
         return dtoRespuestaReserva;
+    }
+    public void  validarExistenciaReserva(Reserva reserva){
+        if (!existenciaReserva(reserva)){
+            throw new ExcepcionReservaNoEncontrada(MENSAJE_NO_SE_ECONTRO_RESERVA);
+        }
+    }
+
+    public boolean existenciaReserva(Reserva reserva){
+        Long id = Long.valueOf(reserva.getId());
+        return this.repositorioReserva.existe(id);
     }
 
     public double calcularValorMulta(Reserva reserva){
@@ -40,7 +54,7 @@ public class ServicioActualizarReserva {
 
     public Boolean validarCancelacionUnaHoraAntes(LocalDateTime horaInicial){
         Boolean validarCancelacion = true;
-        LocalDateTime horaCancelacion = LocalDateTime.now();
+        LocalDateTime horaCancelacion = horaHoy(LocalDateTime.now());
         if (horaInicial.getDayOfYear() == horaCancelacion.getDayOfYear()){
             double minutosHoraCancelacion = convertirTiempoAMinutos(horaCancelacion);
             double minutosHoraIncial = convertirTiempoAMinutos(horaInicial);
@@ -52,6 +66,9 @@ public class ServicioActualizarReserva {
                 validarCancelacion = false;
         }
         return validarCancelacion;
+    }
+    public LocalDateTime horaHoy(LocalDateTime localDateTime){
+        return localDateTime;
     }
 
     public double convertirTiempoAMinutos(LocalDateTime tiempo){

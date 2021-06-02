@@ -1,5 +1,8 @@
 package com.ceiba.reserva.servicio;
 
+import com.ceiba.BasePrueba;
+import com.ceiba.dominio.excepcion.ExcepcionReservaActiva;
+import com.ceiba.dominio.excepcion.ExcepcionReservaNoEncontrada;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
@@ -12,6 +15,17 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.Assert.assertEquals;
 
 public class ServicioActualizarReservaTest {
+    @Test
+    public void validarExistenciaReserva(){
+        //arange
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder().conId(1);
+        Reserva reserva = reservaTestDataBuilder.build();
+        RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
+        ServicioActualizarReserva servicioActualizarReserva = new ServicioActualizarReserva(repositorioReserva);
+        Mockito.when(servicioActualizarReserva.existenciaReserva(reserva)).thenReturn(false);
+        // act - assert
+        BasePrueba.assertThrows(() -> servicioActualizarReserva.ejecutar(reserva), ExcepcionReservaNoEncontrada.class, "No se encontro una reserva para cancelar");
+    }
 
     @Test
     public void convertirTiempoAMinutos(){
@@ -28,7 +42,7 @@ public class ServicioActualizarReservaTest {
     }
 
     @Test
-    public void validarCancelacionUnaHoraAntes(){
+    public void validarCancelacionUnaHoraAntesConMulta(){
         // arrange
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
@@ -52,4 +66,6 @@ public class ServicioActualizarReservaTest {
         // act - assert
         assertEquals(valorEsperado,servicioActualizarReserva.calcularValorMulta(reserva),0.001);
     }
+
+
 }

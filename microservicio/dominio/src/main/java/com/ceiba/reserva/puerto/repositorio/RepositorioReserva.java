@@ -34,5 +34,12 @@ public interface RepositorioReserva {
      */
     DtoRespuestaReserva actualizar(Reserva reserva);
 
+    /**
+     * Permite crear un usuario
+     * @param id
+     * @return el id generado
+     */
+    boolean existe(Long id);
+
 
 }

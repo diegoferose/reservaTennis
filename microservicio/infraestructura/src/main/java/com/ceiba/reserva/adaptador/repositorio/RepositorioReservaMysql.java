@@ -26,6 +26,9 @@ public class RepositorioReservaMysql implements RepositorioReserva {
     @SqlStatement(namespace="reserva", value="actualizarEstadoReserva")
     private static String sqlActualizar;
 
+    @SqlStatement(namespace="reserva", value="buscarPorId")
+    private static String sqlBuscarPorId;
+
     public RepositorioReservaMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate, MapperReserva mapperReserva) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
         this.mapperReserva = mapperReserva;
@@ -56,5 +59,12 @@ public class RepositorioReservaMysql implements RepositorioReserva {
     public DtoRespuestaReserva actualizar(Reserva reserva) {
         this.customNamedParameterJdbcTemplate.actualizar(reserva, sqlActualizar);
         return mapperReserva.mapperEntityToDto(Long.parseLong(reserva.getId()+""),reserva);
+    }
+
+    @Override
+    public boolean existe(Long id) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", id);
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPorId,paramSource,Boolean.class);
     }
 }
