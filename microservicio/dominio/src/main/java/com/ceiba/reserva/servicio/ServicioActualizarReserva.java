@@ -1,11 +1,9 @@
 package com.ceiba.reserva.servicio;
 
-import com.ceiba.dominio.excepcion.ExcepcionHoraDiferenteDIa;
 import com.ceiba.dominio.excepcion.ExcepcionReservaNoEncontrada;
 import com.ceiba.reserva.modelo.dto.DtoRespuestaReserva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
-
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

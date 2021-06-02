@@ -1,7 +1,6 @@
 package com.ceiba.reserva.servicio;
 
 import com.ceiba.BasePrueba;
-import com.ceiba.dominio.excepcion.ExcepcionReservaActiva;
 import com.ceiba.dominio.excepcion.ExcepcionReservaNoEncontrada;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
