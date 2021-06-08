@@ -55,7 +55,7 @@ public class Reserva {
 
     public void validarHorasMismoDia(String horaInicio, String horaFin){
         LocalDateTime horaFinValidacion = LocalDateTime.parse(horaFin, formatter);
-        LocalDateTime horaInicioValidacion = LocalDateTime.parse(horaInicio, formatter);;
+        LocalDateTime horaInicioValidacion = LocalDateTime.parse(horaInicio, formatter);
         if (horaInicioValidacion.getDayOfYear() != horaFinValidacion.getDayOfYear()){
             throw new ExcepcionHoraDiferenteDIa(MENSAJE_HORA_DIFERENTE_DIA);
         }
@@ -63,7 +63,7 @@ public class Reserva {
     public void validarReservaDe8Ama5Pm(String horaInicio, String horaFin){
 
         LocalDateTime horaFinValidacion = LocalDateTime.parse(horaFin, formatter);
-        LocalDateTime horaInicioValidacion = LocalDateTime.parse(horaInicio, formatter);;
+        LocalDateTime horaInicioValidacion = LocalDateTime.parse(horaInicio, formatter);
         if (horaInicioValidacion.getHour() < HORA_MINIMA_RESERVA ||
                 horaFinValidacion.getHour() > HORA_MAXIMA_RESERVA ||
                 (horaFinValidacion.getHour() == HORA_MAXIMA_RESERVA && horaFinValidacion.getMinute() > 0)){
@@ -72,7 +72,7 @@ public class Reserva {
     }
     public void validarHoraIncialMenorAHoraFinal(String horaInicio, String horaFin){
         LocalDateTime horaFinValidacion = LocalDateTime.parse(horaFin, formatter);
-        LocalDateTime horaInicioValidacion = LocalDateTime.parse(horaInicio, formatter);;
+        LocalDateTime horaInicioValidacion = LocalDateTime.parse(horaInicio, formatter);
         int compararHoras = horaFinValidacion.compareTo(horaInicioValidacion);
         if (compararHoras == HORA_INICIO_MAYOR){
             throw new ExcepcionHoraInicialMayor(MENSAJE_HORA_INICIO_MAYOR);
