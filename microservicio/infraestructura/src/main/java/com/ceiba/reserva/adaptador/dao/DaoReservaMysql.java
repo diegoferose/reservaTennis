@@ -32,6 +32,6 @@ public class DaoReservaMysql implements DaoReserva {
     public List<DtoReserva> listarPorIdentificacion(String identificacionUsuario) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("identificacionUsuario", identificacionUsuario);
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar,paramSource, new MapeoReserva());
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListarPorIdentificacion,paramSource, new MapeoReserva());
     }
 }

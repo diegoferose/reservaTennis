@@ -16,33 +16,24 @@ public class ServicioCrearReservaTest {
     public void validarReservaDe8Ama5Pm(){
         // arrange
         ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder().conHoraInicial("2021-05-28 06:00:00");
-        Reserva reserva = reservaTestDataBuilder.build();
-        RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
-        ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
         // act - assert
-        BasePrueba.assertThrows(() -> servicioCrearReserva.ejecutar(reserva), ExcepcionHoraReservaNoValida.class, "La reserva no se encuentra en el horario valido");
+        BasePrueba.assertThrows(() -> reservaTestDataBuilder.build(), ExcepcionHoraReservaNoValida.class, "La reserva no se encuentra en el horario valido");
     }
 
     @Test
     public void validarHorasMismoDia(){
         // arrange
         ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder().conHoraInicial("2021-05-27 08:00:00");
-        Reserva reserva = reservaTestDataBuilder.build();
-        RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
-        ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
         // act - assert
-        BasePrueba.assertThrows(() -> servicioCrearReserva.ejecutar(reserva), ExcepcionHoraDiferenteDIa.class, "Las horas deben ser el mismo dia");
+        BasePrueba.assertThrows(() -> reservaTestDataBuilder.build(), ExcepcionHoraDiferenteDIa.class, "Las horas deben ser el mismo dia");
     }
 
     @Test
     public void validarHoraIncialMenorAHoraFinal(){
         // arrange
         ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder().conHoraInicial("2021-05-29 08:00:00");
-        Reserva reserva = reservaTestDataBuilder.build();
-        RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
-        ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
         // act - assert
-        BasePrueba.assertThrows(() -> servicioCrearReserva.ejecutar(reserva), ExcepcionHoraInicialMayor.class, "La hora de inicio no puede ser mayor a la final");
+        BasePrueba.assertThrows(() -> reservaTestDataBuilder.build(), ExcepcionHoraInicialMayor.class, "La hora de inicio no puede ser mayor a la final");
     }
     @Test
     public void validarReservaActiva(){

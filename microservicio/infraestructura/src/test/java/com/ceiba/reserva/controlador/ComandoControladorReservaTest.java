@@ -66,7 +66,7 @@ public class ComandoControladorReservaTest {
         mocMvc.perform(put("/reservas/{id}",id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoReserva)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isMethodNotAllowed());
     }
 
 }

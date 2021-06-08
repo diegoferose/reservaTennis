@@ -1,8 +1,5 @@
 package com.ceiba.reserva.servicio;
 
-import com.ceiba.dominio.excepcion.ExcepcionHoraDiferenteDIa;
-import com.ceiba.dominio.excepcion.ExcepcionHoraInicialMayor;
-import com.ceiba.dominio.excepcion.ExcepcionHoraReservaNoValida;
 import com.ceiba.dominio.excepcion.ExcepcionReservaActiva;
 import com.ceiba.reserva.modelo.dto.DtoRespuestaReserva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
@@ -12,18 +9,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ServicioCrearReserva {
-    private static final String MENSAJE_HORA_INICIO_MAYOR = "La hora de inicio no puede ser mayor a la final";
-    private static final String MENSAJE_HORA_RESERVA_NO_VALIDA = "La reserva no se encuentra en el horario valido";
-    private static final String MENSAJE_HORA_DIFERENTE_DIA = "Las horas deben ser el mismo dia";
+
     private static final String MENSAJE_RESERVA_ACTIVA_EN_HORA = "Ya existe una reserva activa en ese rango de tiempo";
     private static final String CATEGORIA_A = "A";
     private static final String CATEGORIA_B = "B";
     private static final String CATEGORIA_C = "C";
     private static final String ESTADO_RESERVADO = "RESERVADO";
-
-    private static final int HORA_INICIO_MAYOR = -1;
-    private static final int HORA_MINIMA_RESERVA = 8;
-    private static final int HORA_MAXIMA_RESERVA = 17;
     private static final int VALOR_HORA_CATEGORIA_A = 10700;
     private static final int VALOR_HORA_CATEGORIA_B = 11500;
     private static final int VALOR_HORA_CATEGORIA_C = 13500;
@@ -44,10 +35,6 @@ public class ServicioCrearReserva {
     public DtoRespuestaReserva ejecutar(Reserva reserva){
         horaFin = LocalDateTime.parse(reserva.getHoraFin(), formatter);
         horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
-
-        validarHoraIncialMenorAHoraFinal();
-        validarReservaDe8Ama5Pm();
-        validarHorasMismoDia();
         validarReservaActiva(reserva);
         reserva.setValorAPagar(obtenerValorAPagar(reserva));
         reserva.setEstado(ESTADO_RESERVADO);
@@ -55,30 +42,11 @@ public class ServicioCrearReserva {
         return this.repositorioReserva.crear(reserva);
     }
 
-    public void validarReservaDe8Ama5Pm(){
-        if (horaInicio.getHour() < HORA_MINIMA_RESERVA ||
-                horaFin.getHour() > HORA_MAXIMA_RESERVA ||
-                (horaFin.getHour() == HORA_MAXIMA_RESERVA && horaFin.getMinute() > 0)){
-            throw new ExcepcionHoraReservaNoValida(MENSAJE_HORA_RESERVA_NO_VALIDA);
-        }
-    }
-
-    public void validarHoraIncialMenorAHoraFinal(){
-        int compararHoras = horaFin.compareTo(horaInicio);
-        if (compararHoras == HORA_INICIO_MAYOR){
-            throw new ExcepcionHoraInicialMayor(MENSAJE_HORA_INICIO_MAYOR);
-        }
-    }
-    public void validarHorasMismoDia(){
-        if (horaInicio.getDayOfYear() != horaFin.getDayOfYear()){
-            throw new ExcepcionHoraDiferenteDIa(MENSAJE_HORA_DIFERENTE_DIA);
-        }
-    }
-     public void validarReservaActiva(Reserva reserva){
+    public void validarReservaActiva(Reserva reserva){
         if (this.repositorioReserva.buscarReservaPorFecha(reserva) > 0){
             throw new ExcepcionReservaActiva(MENSAJE_RESERVA_ACTIVA_EN_HORA);
         }
-     }
+    }
 
     public double obtenerValorAPagar(Reserva reserva){
         String categoria = obtenerCategoria(reserva.getIdentificacionUsuario());
@@ -104,7 +72,7 @@ public class ServicioCrearReserva {
         horaFin = LocalDateTime.parse(reserva.getHoraFin(), formatter);
         horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
         if (horaInicio.getDayOfWeek().getValue() == SABADO || horaInicio.getDayOfWeek().getValue() == DOMINGO){
-             recargarFinDeSemana = 1.2;
+            recargarFinDeSemana = 1.2;
         }
         double tiempoReservado = calcularTiempoReservado(reserva);
         return (((valorBase*tiempoReservado)/MINUTOS_DE_UNA_HORA)*recargarFinDeSemana);

@@ -30,9 +30,9 @@ public class ComandoControladorReserva {
         return manejadorCrearReserva.ejecutar(comandoReserva);
     }
 
-    @PutMapping(value="/{id}")
+    @PostMapping(value="/{id}")
     @ApiOperation("Actualizar reserva")
-    public ComandoRespuesta<DtoRespuestaReserva> actualizar(@RequestBody ComandoReserva comandoReserva, @PathVariable int id) {
+    public ComandoRespuesta<DtoRespuestaReserva> actualizarEstadoReserva(@RequestBody ComandoReserva comandoReserva, @PathVariable int id) {
         comandoReserva.setId(id);
         return manejadorActualizarReserva.ejecutar(comandoReserva);
     }
