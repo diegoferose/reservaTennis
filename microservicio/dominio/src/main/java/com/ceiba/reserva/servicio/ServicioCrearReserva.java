@@ -34,8 +34,7 @@ public class ServicioCrearReserva {
     }
 
     public DtoRespuestaReserva ejecutar(Reserva reserva){
-        horaFin = LocalDateTime.parse(reserva.getHoraFin(), formatter);
-        horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
+
         validarReservaActiva(reserva);
         reserva.setValorAPagar(obtenerValorAPagar(reserva));
         reserva.setEstado(ESTADO_RESERVADO);
@@ -69,6 +68,7 @@ public class ServicioCrearReserva {
     }
 
     public double calcularValorAPagar(Reserva reserva, int valorBase){
+
         double recargarFinDeSemana = 1;
         horaFin = LocalDateTime.parse(reserva.getHoraFin(), formatter);
         horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
