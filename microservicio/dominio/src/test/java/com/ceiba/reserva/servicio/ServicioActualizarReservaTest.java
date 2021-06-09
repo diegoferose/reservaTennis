@@ -76,7 +76,7 @@ public class ServicioActualizarReservaTest {
         ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
         Reserva reserva = reservaTestDataBuilder.build();
         LocalDateTime horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
-        LocalDateTime horaCancelacion = LocalDateTime.parse("2021-05-27 04:00:00", formatter);
+        LocalDateTime horaCancelacion = LocalDateTime.parse("2021-05-28 04:00:00", formatter);
         RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
         ServicioActualizarReserva servicioActualizarReserva = new ServicioActualizarReserva(repositorioReserva);
         boolean valorEsperado = false;
