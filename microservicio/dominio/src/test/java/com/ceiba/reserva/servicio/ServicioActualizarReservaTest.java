@@ -70,6 +70,21 @@ public class ServicioActualizarReservaTest {
     }
 
     @Test
+    public void validarCancelacionUnaHoraAntesSinMulta2(){
+        // arrange
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
+        Reserva reserva = reservaTestDataBuilder.build();
+        LocalDateTime horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
+        LocalDateTime horaCancelacion = LocalDateTime.parse("2021-05-27 04:00:00", formatter);
+        RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
+        ServicioActualizarReserva servicioActualizarReserva = new ServicioActualizarReserva(repositorioReserva);
+        boolean valorEsperado = false;
+        // act - assert
+        assertEquals(valorEsperado,servicioActualizarReserva.validarCancelacionUnaHoraAntes(horaInicio,horaCancelacion));
+    }
+
+    @Test
     public void calcularValorMulta(){
         // arrange
         ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
