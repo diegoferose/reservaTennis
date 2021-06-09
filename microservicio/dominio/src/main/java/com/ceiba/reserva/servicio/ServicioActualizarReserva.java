@@ -43,16 +43,15 @@ public class ServicioActualizarReserva {
     public double calcularValorMulta(Reserva reserva){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
-        if (validarCancelacionUnaHoraAntes(horaInicio)){
+        if (validarCancelacionUnaHoraAntes(horaInicio,horaHoy(LocalDateTime.now()))){
             return VALOR_MULTA_MENOS_DE_UNA_HORA;
         }else {
             return VALOR_MULTA_MAS_DE_UNA_HORA;
         }
     }
 
-    public Boolean validarCancelacionUnaHoraAntes(LocalDateTime horaInicial){
+    public Boolean validarCancelacionUnaHoraAntes(LocalDateTime horaInicial, LocalDateTime horaCancelacion){
         Boolean validarCancelacion = true;
-        LocalDateTime horaCancelacion = horaHoy(LocalDateTime.now());
         if (horaInicial.getDayOfYear() == horaCancelacion.getDayOfYear()){
             double minutosHoraCancelacion = convertirTiempoAMinutos(horaCancelacion);
             double minutosHoraIncial = convertirTiempoAMinutos(horaInicial);
