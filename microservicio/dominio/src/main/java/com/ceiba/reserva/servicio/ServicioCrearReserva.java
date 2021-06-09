@@ -20,6 +20,7 @@ public class ServicioCrearReserva {
     private static final int VALOR_HORA_CATEGORIA_C = 13500;
     private static final int VALOR_HORA_SIN_CATEGORIA = 15000;
     private static final int MINUTOS_DE_UNA_HORA = 60;
+    private static final int DOS_PM = 14;
     private static final int SABADO = 6;
     private static final int DOMINGO = 7;
 
@@ -71,7 +72,7 @@ public class ServicioCrearReserva {
         double recargarFinDeSemana = 1;
         horaFin = LocalDateTime.parse(reserva.getHoraFin(), formatter);
         horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
-        if (horaInicio.getDayOfWeek().getValue() == SABADO || horaInicio.getDayOfWeek().getValue() == DOMINGO){
+        if ((horaInicio.getDayOfWeek().getValue() == SABADO || horaInicio.getDayOfWeek().getValue() == DOMINGO) && horaInicio.getHour() >= DOS_PM){
             recargarFinDeSemana = 1.2;
         }
         double tiempoReservado = calcularTiempoReservado(reserva);
