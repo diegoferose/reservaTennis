@@ -60,6 +60,18 @@ public class ServicioCrearReservaTest {
         assertEquals(valorEsperadoAPagar,servicioCrearReserva.obtenerValorAPagar(reserva),0.001);
     }
     @Test
+    public void obtenerValorAPagarCategoriaAFinDeSemana(){
+        // arrange
+        ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
+        Reserva reserva = reservaTestDataBuilder.conHoraInicial("2021-05-29 15:00:00").conHoraFin("2021-05-29 16:00:00").build();
+        RepositorioReserva repositorioReserva = Mockito.mock(RepositorioReserva.class);
+        ServicioCrearReserva servicioCrearReserva = new ServicioCrearReserva(repositorioReserva);
+        Mockito.when(servicioCrearReserva.obtenerCategoria(Mockito.anyString())).thenReturn("A");
+        double valorEsperadoAPagar = 12840;
+        // act - assert
+        assertEquals(valorEsperadoAPagar,servicioCrearReserva.obtenerValorAPagar(reserva),0.001);
+    }
+    @Test
     public void obtenerValorAPagarCategoriaB(){
         // arrange
         ReservaTestDataBuilder reservaTestDataBuilder = new ReservaTestDataBuilder();
