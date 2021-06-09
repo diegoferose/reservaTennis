@@ -24,6 +24,14 @@ public class ComandoReservaTestDataBuilder {
         this.horaInicio = horaInicio;
         return this;
     }
+    public ComandoReservaTestDataBuilder conHoraDeFin(String horaFin){
+        this.horaFin = horaFin;
+        return this;
+    }
+    public ComandoReservaTestDataBuilder conEstado(String estado){
+        this.estado = estado;
+        return this;
+    }
     public ComandoReserva build(){
         return new ComandoReserva(id,identificacionUsuario,fecha,horaInicio,horaFin,estado,valorAPagar);
     }
