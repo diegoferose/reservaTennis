@@ -1,6 +1,7 @@
 package com.ceiba.reserva.servicio.testdatabuilder;
 
 import com.ceiba.reserva.modelo.entidad.Reserva;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
 
@@ -41,6 +42,16 @@ public class ReservaTestDataBuilder {
     }
 
     public Reserva build(){
+        /*Reserva reserva = Mockito.mock(Reserva.class);
+        reserva.setId(id);
+        reserva.setIdentificacionUsuario(identificacionUsuario);
+        reserva.setFecha(fecha);
+        reserva.setHoraInicio(horaInicio);
+        reserva.setHoraFin(horaFin);
+        reserva.setValorAPagar(valorAPagar);
+        reserva.setEstado(estado);
+        System.out.println("hora incio: "+reserva.getHoraInicio());*/
         return new Reserva(id,identificacionUsuario,fecha,horaInicio,horaFin,valorAPagar,estado);
+        //return  reserva;
     }
 }

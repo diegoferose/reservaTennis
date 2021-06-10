@@ -36,19 +36,20 @@ public class ServicioCrearReserva {
     public DtoRespuestaReserva ejecutar(Reserva reserva){
 
         validarReservaActiva(reserva);
-        reserva.setValorAPagar(obtenerValorAPagar(reserva));
+        double valorApagar = obtenerValorAPagar(reserva);
+        reserva.setValorAPagar(valorApagar);
         reserva.setEstado(ESTADO_RESERVADO);
 
         return this.repositorioReserva.crear(reserva);
     }
 
-    public void validarReservaActiva(Reserva reserva){
+    private void validarReservaActiva(Reserva reserva){
         if (this.repositorioReserva.buscarReservaPorFecha(reserva) > 0){
             throw new ExcepcionReservaActiva(MENSAJE_RESERVA_ACTIVA_EN_HORA);
         }
     }
 
-    public double obtenerValorAPagar(Reserva reserva){
+    private double obtenerValorAPagar(Reserva reserva){
         String categoria = obtenerCategoria(reserva.getIdentificacionUsuario());
         double valorAPagar;
         switch (categoria){
@@ -67,7 +68,7 @@ public class ServicioCrearReserva {
         return valorAPagar;
     }
 
-    public double calcularValorAPagar(Reserva reserva, int valorBase){
+    private double calcularValorAPagar(Reserva reserva, int valorBase){
 
         double recargarFinDeSemana = 1;
         horaFin = LocalDateTime.parse(reserva.getHoraFin(), formatter);
@@ -79,7 +80,7 @@ public class ServicioCrearReserva {
         return (((valorBase*tiempoReservado)/MINUTOS_DE_UNA_HORA)*recargarFinDeSemana);
     }
 
-    public double calcularTiempoReservado(Reserva reserva){
+    private double calcularTiempoReservado(Reserva reserva){
         double tiempo;
         horaFin = LocalDateTime.parse(reserva.getHoraFin(), formatter);
         horaInicio = LocalDateTime.parse(reserva.getHoraInicio(), formatter);
@@ -95,7 +96,7 @@ public class ServicioCrearReserva {
         return tiempo;
     }
 
-    public String obtenerCategoria(String identificacion){
+    private String obtenerCategoria(String identificacion){
         return this.repositorioReserva.buscarCategoriaPorIdentificacion(identificacion);
     }
 

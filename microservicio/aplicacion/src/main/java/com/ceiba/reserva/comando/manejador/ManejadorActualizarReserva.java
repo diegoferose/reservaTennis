@@ -1,6 +1,7 @@
 package com.ceiba.reserva.comando.manejador;
 
 import com.ceiba.ComandoRespuesta;
+import com.ceiba.manejador.ManejadorComandoRespuesta;
 import com.ceiba.reserva.comando.ComandoReserva;
 import com.ceiba.reserva.comando.fabrica.FabricaReserva;
 import com.ceiba.reserva.modelo.dto.DtoRespuestaReserva;
@@ -9,7 +10,7 @@ import com.ceiba.reserva.servicio.ServicioActualizarReserva;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ManejadorActualizarReserva {
+public class ManejadorActualizarReserva implements ManejadorComandoRespuesta<ComandoReserva, ComandoRespuesta<DtoRespuestaReserva>> {
     private final FabricaReserva fabricaReserva;
     private final ServicioActualizarReserva servicioActualizarReserva;
 

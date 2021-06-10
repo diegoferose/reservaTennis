@@ -83,4 +83,56 @@ public class Reserva {
         this.valorAPagar = valorAPagar;
     }
     public void setEstado(String estado) { this.estado = estado; }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getIdentificacionUsuario() {
+        return identificacionUsuario;
+    }
+
+    public void setIdentificacionUsuario(String identificacionUsuario) {
+        this.identificacionUsuario = identificacionUsuario;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(String horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public double getValorAPagar() {
+        return valorAPagar;
+    }
+
+    public void setValorAPagar(double valorAPagar) {
+        this.valorAPagar = valorAPagar;
+    }
 }
